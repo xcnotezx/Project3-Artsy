@@ -1,4 +1,4 @@
-# Project2-ReversiAlpha
+# Project3-Artsy
 Team: ...And his name is John Sinna!!!
 
 🎺🎺🎺
