@@ -1,6 +1,11 @@
-# Project Submission
+# Project2-ReversiAlpha
+Team: ...And his name is John Sinna!!!
 
-Author: PARTNER NAME 1 (LAST 3 DIGITS OF 810/811 NUMBER HERE)
-Author: PARTNER NAME 2 (LAST 3 DIGITS OF 810/811 NUMBER HERE)
+🎺🎺🎺
 
-[If you did any of the extra credit then please indicate that here.]
+
+Partners:
+
+John Carolin 810641630 jvcarolin@uga.edu
+
+Sinna Uy 810385861 suy@uga.edu
