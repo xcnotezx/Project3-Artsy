@@ -57,7 +57,7 @@ public class Driver extends Application {
     	//button
     	Button rotate = new Button("Rotate");
     	rotate.setOnAction(e -> System.out.println("ROTATE")); //setOnActive ROTATE
-    	Button reset = new Button("reset");
+    	Button reset = new Button("Reset");
     	reset.setOnAction(e -> System.out.println("RESET")); //setOnAction RESET
     	bottomMenu.getChildren().addAll(rotate, reset);
     	bottomMenu.setAlignment(Pos.BOTTOM_LEFT);
