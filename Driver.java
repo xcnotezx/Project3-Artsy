@@ -325,7 +325,6 @@ public class Driver extends Application {
 		        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
 		        fileChooser1.getExtensionFilters().addAll(extFilterBMP, extFilterGIF, extFilterJPEG, extFilterPNG);
 		        
-		        
 				imageFile1 = fileChooser1.showOpenDialog(null);
 				
 				try {
