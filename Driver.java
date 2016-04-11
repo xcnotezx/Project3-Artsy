@@ -13,6 +13,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -22,10 +23,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Insets;
@@ -44,10 +47,14 @@ public class Driver extends Application {
 	BorderPane centerRightLayout;
 	File imageFile1;
 	File imageFile2;
+	String fileName1 = "default.png";
+	String fileName2 = "default.png";
 	Image imageImport1 = new Image("file:resources/default.png");
 	Image imageImport2 = new Image("file:resources/default.png");
 	Image imageResult = new Image("file:resources/default.png");
 	ImageView insertImage;
+	static int answer;
+	int rotateBoxReturnValue;
 	
 	public static void main(String[] args) {
         launch(args);
@@ -55,13 +62,12 @@ public class Driver extends Application {
 	
 	//Image method
 	public VBox getImage(Image image, VBox getImage) throws Exception{
-		//Group root = new Group();
 		insertImage = new ImageView();
     	insertImage.setImage(image);
     	insertImage.setFitWidth(300);
     	insertImage.setFitHeight(300);
     	getImage.getChildren().add(insertImage);
-    	//root.getChildren().add(getImage);
+    	
 		return getImage;
 	}
 	
@@ -72,7 +78,10 @@ public class Driver extends Application {
     	bottomMenu.setSpacing(10);
     	//button
     	Button rotate = new Button("Rotate");
-    	rotate.setOnAction(e -> System.out.println("ROTATE")); //setOnActive ROTATE
+    	rotate.setOnAction(e -> {
+    		rotateBoxReturnValue = rotateBox("Rotate Image Options", "Please enter your angle, in degress.");
+    		
+    	}); //setOnActive ROTATE
     	Button reset = new Button("Reset");
     	reset.setOnAction(e -> System.out.println("RESET")); //setOnAction RESET
     	bottomMenu.getChildren().addAll(rotate, reset);
@@ -80,8 +89,57 @@ public class Driver extends Application {
     	return bottomMenu;
     }
 	
+	//RotateBox window
+	public static int rotateBox(String title, String message){
+		Stage window = new Stage();
+		window.initModality(Modality.APPLICATION_MODAL);
+		window.setTitle(title);
+		//window.setMinWidth(250);
+		Label label = new Label();
+		label.setText(message);
+		
+		VBox answerBox = new VBox();
+		
+		//Text Field
+		final TextField textField = new TextField();
+		textField.setPromptText("Enter your angel, in degrees.");
+		answerBox.setSpacing(10);
+		
+		//Buttons
+		Button cancel = new Button("Cancel");
+		Button ok = new Button("Ok");
+		
+		ok.setOnAction(e -> {
+			
+			String stringToInt = textField.getText();
+			if((textField.getText() != null && !textField.getText().isEmpty())) {
+				answer = Integer.parseInt(stringToInt);
+				window.close();
+			}
+			else {
+				label.setText("You have not entered your angel, in degrees.");
+			}
+		});
+		cancel.setOnAction(e -> window.close());
+		
+		answerBox.getChildren().add(label);
+		answerBox.getChildren().add(textField);
+		answerBox.getChildren().add(cancel);
+		answerBox.getChildren().add(ok);
+		answerBox.setAlignment(Pos.CENTER);
+		
+		Scene scene = new Scene(answerBox, 300, 150);
+		window.setScene(scene);
+		window.showAndWait();
+		
+		return answer;
+	}
+	
     @Override
     public void start(Stage stage) throws Exception {
+    	VBox leftImage = new VBox();
+    	VBox centerImage = new VBox();
+    	VBox rightImage = new VBox();
     	window = stage;
     	window.setTitle("Artsy");
     	
@@ -108,7 +166,8 @@ public class Driver extends Application {
 		        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
 		        fileChooser.getExtensionFilters().addAll(extFilterBMP, extFilterGIF, extFilterJPEG, extFilterPNG);
 		        
-				imageFile1 = fileChooser.showOpenDialog(stage);
+		        fileName1 = fileChooser.getInitialFileName();
+				imageFile1 = fileChooser.showOpenDialog(null);
 				
 				try {
 	                BufferedImage bufferedImage = ImageIO.read(imageFile1);
@@ -133,7 +192,7 @@ public class Driver extends Application {
 		        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
 		        fileChooser.getExtensionFilters().addAll(extFilterBMP, extFilterGIF, extFilterJPEG, extFilterPNG);
 		        
-				imageFile2 = fileChooser.showOpenDialog(stage);
+				imageFile2 = fileChooser.showOpenDialog(null);
 				
 				try {
 	                BufferedImage bufferedImage = ImageIO.read(imageFile2);
@@ -174,25 +233,22 @@ public class Driver extends Application {
     	topMenu.getChildren().addAll(checkers, horizontalStripes, verticalStripes);
     	
     	//Image
-    	VBox leftImage = new VBox();
     	//image title 1
-    	Text imageTitle1 = new Text("Image 1 : " + "sameple1.png"); //update image file name
+    	Text imageTitle1 = new Text("Image 1 : " + fileName1); //update image file name
     	leftImage.getChildren().add(imageTitle1);
     	//image padding 1
     	leftImage.setPadding(new Insets(7, 6, 7, 6));
 	    leftImage.setSpacing(5);
     	getImage(imageImport1, leftImage);
     	
-    	VBox centerImage = new VBox();
     	//image title 2
-    	Text imageTitle2 = new Text("Image 2 : " + "sample1.png"); //update image file name
+    	Text imageTitle2 = new Text("Image 2 : " + fileName2); //update image file name
     	centerImage.getChildren().add(imageTitle2);
     	//image padding 2
     	centerImage.setPadding(new Insets(7, 6, 7, 6));
 	    centerImage.setSpacing(5);
     	getImage(imageImport2, centerImage);
     	
-    	VBox rightImage = new VBox();
     	//result title
     	Text resultTitle = new Text("Result");
     	rightImage.getChildren().add(resultTitle);
