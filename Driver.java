@@ -57,12 +57,172 @@ public class Driver extends Application {
 	ImageView viewImage1;
 	ImageView viewImage2;
 	ImageView viewResults;
-	static int answer;
+	static int rotateInput;
+	static int checkersInput;
+	static int horizontalInput;
+	static int verticalInput;
 	int rotateBoxReturnValue;
+	int checkersBoxReturnValue;
+	int horizontalBoxReturnValue;
+	int verticalBoxReturnValue;
 	
 	public static void main(String[] args) {
         launch(args);
     } // main
+	
+	//CheckersBox window
+	public static int checkersBox(String title, String message){
+		Stage window = new Stage();
+		window.initModality(Modality.APPLICATION_MODAL);
+		window.setTitle(title);
+		//window.setMinWidth(250);
+		Label label = new Label();
+		label.setText(message);
+		
+		VBox answerBox = new VBox();
+		
+		//Text Field
+		final TextField textField = new TextField();
+		textField.setPromptText("Enter the desired checker width, in pixels.");
+		answerBox.setSpacing(10);
+		
+		//Buttons
+		Button cancel = new Button("Cancel");
+		Button ok = new Button("Ok");
+		
+		ok.setOnAction(e -> {
+			
+			String stringToInt = textField.getText();
+			if((stringToInt != null && !textField.getText().isEmpty())) {
+				if(textField.getText().matches("[0-9]*")) {
+					checkersInput = Integer.parseInt(stringToInt);
+					window.close();
+				}
+				else {
+					label.setText("You have not entered checker width, in pixels.");
+				}
+			}
+			else {
+				label.setText("You have not entered checker width, in pixels");
+			}
+		});
+		cancel.setOnAction(e -> window.close());
+		
+		answerBox.getChildren().add(label);
+		answerBox.getChildren().add(textField);
+		answerBox.getChildren().add(cancel);
+		answerBox.getChildren().add(ok);
+		answerBox.setAlignment(Pos.CENTER);
+		
+		Scene scene = new Scene(answerBox, 300, 150);
+		window.setScene(scene);
+		window.showAndWait();
+		
+		return checkersInput;
+	}
+	
+	//HorizontalBox window
+	public static int horizontalBox(String title, String message){
+		Stage window = new Stage();
+		window.initModality(Modality.APPLICATION_MODAL);
+		window.setTitle(title);
+		//window.setMinWidth(250);
+		Label label = new Label();
+		label.setText(message);
+		
+		VBox answerBox = new VBox();
+		
+		//Text Field
+		final TextField textField = new TextField();
+		textField.setPromptText("Enter the desired stripe height, in pixels.");
+		answerBox.setSpacing(10);
+		
+		//Buttons
+		Button cancel = new Button("Cancel");
+		Button ok = new Button("Ok");
+		
+		ok.setOnAction(e -> {
+			
+			String stringToInt = textField.getText();
+			if((stringToInt != null && !textField.getText().isEmpty())) {
+				if(textField.getText().matches("[0-9]*")) {
+					horizontalInput = Integer.parseInt(stringToInt);
+					window.close();
+				}
+				else {
+					label.setText("You have not entered stripe height, in pixels.");
+				}
+			}
+			else {
+				label.setText("You have not entered stripe height, in pixels");
+			}
+		});
+		cancel.setOnAction(e -> window.close());
+		
+		answerBox.getChildren().add(label);
+		answerBox.getChildren().add(textField);
+		answerBox.getChildren().add(cancel);
+		answerBox.getChildren().add(ok);
+		answerBox.setAlignment(Pos.CENTER);
+		
+		Scene scene = new Scene(answerBox, 350, 150);
+		window.setScene(scene);
+		window.showAndWait();
+		
+		return checkersInput;
+	}
+	
+	//VerticalBox window
+	public static int verticalBox(String title, String message){
+		Stage window = new Stage();
+		window.initModality(Modality.APPLICATION_MODAL);
+		window.setTitle(title);
+		//window.setMinWidth(250);
+		Label label = new Label();
+		label.setText(message);
+		
+		VBox answerBox = new VBox();
+		
+		//Text Field
+		final TextField textField = new TextField();
+		textField.setPromptText("Enter the desired stripe width, in pixels.");
+		answerBox.setSpacing(10);
+		
+		//Buttons
+		Button cancel = new Button("Cancel");
+		Button ok = new Button("Ok");
+		
+		ok.setOnAction(e -> {
+			
+			String stringToInt = textField.getText();
+			if((stringToInt != null && !textField.getText().isEmpty())) {
+				if(textField.getText().matches("[0-9]*")) {
+					verticalInput = Integer.parseInt(stringToInt);
+					window.close();
+				}
+				else {
+					label.setText("You have not entered stripe width, in pixels.");
+				}
+			}
+			else {
+				label.setText("You have not entered stripe width, in pixels");
+			}
+		});
+		cancel.setOnAction(e -> window.close());
+		
+		answerBox.getChildren().add(label);
+		answerBox.getChildren().add(textField);
+		answerBox.getChildren().add(cancel);
+		answerBox.getChildren().add(ok);
+		answerBox.setAlignment(Pos.CENTER);
+		
+		Scene scene = new Scene(answerBox, 300, 150);
+		window.setScene(scene);
+		window.showAndWait();
+		
+		return checkersInput;
+	}
+	
 	
 	//Bottom button method
 	public VBox bottomMenu(VBox bottomMenu) throws Exception{
@@ -107,7 +267,7 @@ public class Driver extends Application {
 			String stringToInt = textField.getText();
 			if((stringToInt != null && !textField.getText().isEmpty())) {
 				if(textField.getText().matches("[0-9]*")) {
-					answer = Integer.parseInt(stringToInt);
+					rotateInput = Integer.parseInt(stringToInt);
 					window.close();
 				}
 				else {
@@ -130,7 +290,7 @@ public class Driver extends Application {
 		window.setScene(scene);
 		window.showAndWait();
 		
-		return answer;
+		return rotateInput;
 	}
 	
     @Override
@@ -211,7 +371,20 @@ public class Driver extends Application {
         fileMenu.getItems().add(open);
     	fileMenu.getItems().add(new SeparatorMenuItem());
     	MenuItem saveResultAs = new MenuItem("Save Result As");
-    	saveResultAs.setOnAction(e -> System.out.println("SAVE RESULT AS")); //setOnAction SAVE RESULTS AS
+    	saveResultAs.setOnAction(new EventHandler<ActionEvent>(){
+    		
+    		@Override
+			public void handle(ActionEvent event) {
+    			try {
+    				Image image = null; // assume non-empty
+    				File file = new File("image.png");
+    				BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+    				ImageIO.write(bImage, "png", file);
+    			} catch (IOException ex) {
+    				System.out.println("Image did not save.");
+    			}
+    		}
+    	}); //setOnAction SAVE RESULTS AS
     	fileMenu.getItems().add(saveResultAs);
     	fileMenu.getItems().add(new SeparatorMenuItem());
     	MenuItem exit = new MenuItem("Exit");
@@ -229,11 +402,17 @@ public class Driver extends Application {
 	    topMenu.setSpacing(10);
 	    //buttons
 	    Button checkers = new Button("Checkers");
-	    checkers.setOnAction(e -> System.out.println("CHECKERS")); //setOnAction CHECKERS
+	    checkers.setOnAction(e -> {
+    		checkersBoxReturnValue = checkersBox("Checkers Options", "Please enter the desired checker width, in pixels.");
+	    }); //setOnAction CHECKERS
     	Button horizontalStripes = new Button("Horizontal Stripes");
-    	horizontalStripes.setOnAction(e -> System.out.println("HORIZONTAL STRIPES")); //setOnAction HORIZONTAL STRIPES
+    	horizontalStripes.setOnAction(e -> {
+    		horizontalBoxReturnValue = horizontalBox("Horizontal Stripe Options", "Please enter the desired stripe height, in pixels.");
+	    }); //setOnAction HORIZONTAL STRIPES
     	Button verticalStripes = new Button("Vertical Stripes");
-    	verticalStripes.setOnAction(e -> System.out.println("VERTICAL STRIPES")); //setOnAction VERTICAL STRIPES
+    	verticalStripes.setOnAction(e -> {
+    		verticalBoxReturnValue = verticalBox("Vertical Stripe Options", "Please enter the desired stripe width, in pixels.");
+	    }); //setOnAction VERTICAL STRIPES
     	topMenu.getChildren().addAll(checkers, horizontalStripes, verticalStripes);
     	
     	//Image
