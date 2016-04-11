@@ -2,7 +2,17 @@ package main.java.cs1302.p2;
 
 import main.java.cs1302.effects.Artsy;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import javafx.application.Application;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -32,6 +42,12 @@ public class Driver extends Application {
 	BorderPane centerLeftLayout;
 	BorderPane centerLayout;
 	BorderPane centerRightLayout;
+	File imageFile1;
+	File imageFile2;
+	Image imageImport1 = new Image("file:resources/default.png");
+	Image imageImport2 = new Image("file:resources/default.png");
+	Image imageResult = new Image("file:resources/default.png");
+	ImageView insertImage;
 	
 	public static void main(String[] args) {
         launch(args);
@@ -40,7 +56,7 @@ public class Driver extends Application {
 	//Image method
 	public VBox getImage(Image image, VBox getImage) throws Exception{
 		//Group root = new Group();
-		ImageView insertImage = new ImageView();
+		insertImage = new ImageView();
     	insertImage.setImage(image);
     	insertImage.setFitWidth(300);
     	insertImage.setFitHeight(300);
@@ -69,13 +85,67 @@ public class Driver extends Application {
     	window = stage;
     	window.setTitle("Artsy");
     	
+    	//File chooser
+    	FileChooser fileChooser = new FileChooser();
+    	fileChooser.setTitle("Open Resource File");
+    	
     	//File menu
     	Menu fileMenu = new Menu("File");
     	
     	//Menu item
-    	MenuItem open = new MenuItem("Open");
-    	open.setOnAction(e -> System.out.println("OPEN")); //setOnAction OPEN
-    	fileMenu.getItems().add(open);
+    	Menu open = new Menu("Open");
+    	MenuItem subMenuImage1 = new MenuItem("Open Image 1");
+    	//Open Image 1
+    	subMenuImage1.setOnAction(new EventHandler<ActionEvent>(){
+    		
+			@Override
+			public void handle(ActionEvent event) {
+			
+				//Set extension filter
+		    	FileChooser.ExtensionFilter extFilterBMP = new FileChooser.ExtensionFilter("BMP files (*.bmp)", "*.BMP");
+		    	FileChooser.ExtensionFilter extFilterGIF = new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.GIF");
+		        FileChooser.ExtensionFilter extFilterJPEG = new FileChooser.ExtensionFilter("JPEG files (*.jpeg)", "*.JPEG");
+		        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+		        fileChooser.getExtensionFilters().addAll(extFilterBMP, extFilterGIF, extFilterJPEG, extFilterPNG);
+		        
+				imageFile1 = fileChooser.showOpenDialog(stage);
+				
+				try {
+	                BufferedImage bufferedImage = ImageIO.read(imageFile1);
+	                imageImport1 = SwingFXUtils.toFXImage(bufferedImage, null);
+	                insertImage.setImage(imageImport1);
+	            } catch (IOException ex) {
+	                System.out.println("Image did not load.");
+	            }
+			}
+    	});
+    	open.getItems().add(subMenuImage1);
+    	MenuItem subMenuImage2 = new MenuItem("Open Image 2");
+    	subMenuImage2.setOnAction(new EventHandler<ActionEvent>(){
+    		
+			@Override
+			public void handle(ActionEvent event) {
+			
+				//Set extension filter
+		    	FileChooser.ExtensionFilter extFilterBMP = new FileChooser.ExtensionFilter("BMP files (*.bmp)", "*.BMP");
+		    	FileChooser.ExtensionFilter extFilterGIF = new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.GIF");
+		        FileChooser.ExtensionFilter extFilterJPEG = new FileChooser.ExtensionFilter("JPEG files (*.jpeg)", "*.JPEG");
+		        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+		        fileChooser.getExtensionFilters().addAll(extFilterBMP, extFilterGIF, extFilterJPEG, extFilterPNG);
+		        
+				imageFile2 = fileChooser.showOpenDialog(stage);
+				
+				try {
+	                BufferedImage bufferedImage = ImageIO.read(imageFile2);
+	                imageImport2 = SwingFXUtils.toFXImage(bufferedImage, null);
+	                insertImage.setImage(imageImport2);
+	            } catch (IOException ex) {
+	                System.out.println("Image did not load.");
+	            }
+			}
+    	}); //setOnAction IMAGE 2
+        open.getItems().add(subMenuImage2);
+        fileMenu.getItems().add(open);
     	fileMenu.getItems().add(new SeparatorMenuItem());
     	MenuItem saveResultAs = new MenuItem("Save Result As");
     	saveResultAs.setOnAction(e -> System.out.println("SAVE RESULT AS")); //setOnAction SAVE RESULTS AS
@@ -104,8 +174,6 @@ public class Driver extends Application {
     	topMenu.getChildren().addAll(checkers, horizontalStripes, verticalStripes);
     	
     	//Image
-    	Image imageImport1 = new Image("file:samples/sample1.png");
-    	Image imageImport2 = new Image("file:samples/sample2.png");
     	VBox leftImage = new VBox();
     	//image title 1
     	Text imageTitle1 = new Text("Image 1 : " + "sameple1.png"); //update image file name
@@ -114,6 +182,7 @@ public class Driver extends Application {
     	leftImage.setPadding(new Insets(7, 6, 7, 6));
 	    leftImage.setSpacing(5);
     	getImage(imageImport1, leftImage);
+    	
     	VBox centerImage = new VBox();
     	//image title 2
     	Text imageTitle2 = new Text("Image 2 : " + "sample1.png"); //update image file name
@@ -122,6 +191,7 @@ public class Driver extends Application {
     	centerImage.setPadding(new Insets(7, 6, 7, 6));
 	    centerImage.setSpacing(5);
     	getImage(imageImport2, centerImage);
+    	
     	VBox rightImage = new VBox();
     	//result title
     	Text resultTitle = new Text("Result");
@@ -129,7 +199,7 @@ public class Driver extends Application {
     	//result padding
     	rightImage.setPadding(new Insets(7, 6, 7, 6));
 	    rightImage.setSpacing(5);
-    	getImage(imageImport1, rightImage);
+    	getImage(imageResult, rightImage);
     	
     	//Bottom buttons
     	VBox bottomLeftMenu = new VBox();
