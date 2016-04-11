@@ -223,7 +223,6 @@ public class Driver extends Application {
 		return checkersInput;
 	}
 	
-	
 	//Bottom button method
 	public VBox bottomMenu(VBox bottomMenu) throws Exception{
 		//button padding
@@ -375,14 +374,16 @@ public class Driver extends Application {
     		
     		@Override
 			public void handle(ActionEvent event) {
-    			try {
-    				Image image = null; // assume non-empty
-    				File file = new File("image.png");
-    				BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
-    				ImageIO.write(bImage, "png", file);
-    			} catch (IOException ex) {
-    				System.out.println("Image did not save.");
-    			}
+    			FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Save Image");
+                File file = fileChooser.showSaveDialog(stage);
+                if (file != null) {
+                    try {
+                        ImageIO.write(SwingFXUtils.fromFXImage(imageResult, null), "png", file);
+                    } catch (IOException ex) {
+                        System.out.println("Image did not save.");
+                    }
+                }
     		}
     	}); //setOnAction SAVE RESULTS AS
     	fileMenu.getItems().add(saveResultAs);
