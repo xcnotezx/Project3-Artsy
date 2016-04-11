@@ -112,9 +112,14 @@ public class Driver extends Application {
 		ok.setOnAction(e -> {
 			
 			String stringToInt = textField.getText();
-			if((textField.getText() != null && !textField.getText().isEmpty())) {
-				answer = Integer.parseInt(stringToInt);
-				window.close();
+			if((stringToInt != null && !textField.getText().isEmpty())) {
+				if(textField.getText().matches("[0-9]*")) {
+					answer = Integer.parseInt(stringToInt);
+					window.close();
+				}
+				else {
+					label.setText("You have not entered your angel, in degrees.");
+				}
 			}
 			else {
 				label.setText("You have not entered your angel, in degrees.");
