@@ -49,27 +49,20 @@ public class Driver extends Application {
 	File imageFile2;
 	String fileName1 = "default.png";
 	String fileName2 = "default.png";
+	Text imageTitle1;
+	Text imageTitle2;
 	Image imageImport1 = new Image("file:resources/default.png");
 	Image imageImport2 = new Image("file:resources/default.png");
 	Image imageResult = new Image("file:resources/default.png");
-	ImageView insertImage;
+	ImageView viewImage1;
+	ImageView viewImage2;
+	ImageView viewResults;
 	static int answer;
 	int rotateBoxReturnValue;
 	
 	public static void main(String[] args) {
         launch(args);
     } // main
-	
-	//Image method
-	public VBox getImage(Image image, VBox getImage) throws Exception{
-		insertImage = new ImageView();
-    	insertImage.setImage(image);
-    	insertImage.setFitWidth(300);
-    	insertImage.setFitHeight(300);
-    	getImage.getChildren().add(insertImage);
-    	
-		return getImage;
-	}
 	
 	//Bottom button method
 	public VBox bottomMenu(VBox bottomMenu) throws Exception{
@@ -149,8 +142,10 @@ public class Driver extends Application {
     	window.setTitle("Artsy");
     	
     	//File chooser
-    	FileChooser fileChooser = new FileChooser();
-    	fileChooser.setTitle("Open Resource File");
+    	FileChooser fileChooser1 = new FileChooser();
+    	FileChooser fileChooser2 = new FileChooser();
+    	fileChooser1.setTitle("Open Resource File");
+    	fileChooser2.setTitle("Open Resource File");
     	
     	//File menu
     	Menu fileMenu = new Menu("File");
@@ -169,15 +164,17 @@ public class Driver extends Application {
 		    	FileChooser.ExtensionFilter extFilterGIF = new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.GIF");
 		        FileChooser.ExtensionFilter extFilterJPEG = new FileChooser.ExtensionFilter("JPEG files (*.jpeg)", "*.JPEG");
 		        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-		        fileChooser.getExtensionFilters().addAll(extFilterBMP, extFilterGIF, extFilterJPEG, extFilterPNG);
+		        fileChooser1.getExtensionFilters().addAll(extFilterBMP, extFilterGIF, extFilterJPEG, extFilterPNG);
 		        
-		        fileName1 = fileChooser.getInitialFileName();
-				imageFile1 = fileChooser.showOpenDialog(null);
+		        
+				imageFile1 = fileChooser1.showOpenDialog(null);
 				
 				try {
 	                BufferedImage bufferedImage = ImageIO.read(imageFile1);
 	                imageImport1 = SwingFXUtils.toFXImage(bufferedImage, null);
-	                insertImage.setImage(imageImport1);
+	                viewImage1.setImage(imageImport1);
+	                fileName1 = imageFile1.getName();
+	                imageTitle1.setText("Image 1 : " + fileName1);
 	            } catch (IOException ex) {
 	                System.out.println("Image did not load.");
 	            }
@@ -195,14 +192,16 @@ public class Driver extends Application {
 		    	FileChooser.ExtensionFilter extFilterGIF = new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.GIF");
 		        FileChooser.ExtensionFilter extFilterJPEG = new FileChooser.ExtensionFilter("JPEG files (*.jpeg)", "*.JPEG");
 		        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-		        fileChooser.getExtensionFilters().addAll(extFilterBMP, extFilterGIF, extFilterJPEG, extFilterPNG);
+		        fileChooser2.getExtensionFilters().addAll(extFilterBMP, extFilterGIF, extFilterJPEG, extFilterPNG);
 		        
-				imageFile2 = fileChooser.showOpenDialog(null);
+				imageFile2 = fileChooser2.showOpenDialog(null);
 				
 				try {
 	                BufferedImage bufferedImage = ImageIO.read(imageFile2);
 	                imageImport2 = SwingFXUtils.toFXImage(bufferedImage, null);
-	                insertImage.setImage(imageImport2);
+	                viewImage2.setImage(imageImport2);
+	                fileName2 = imageFile1.getName();
+	                imageTitle2.setText("Image 2 : " + fileName2);
 	            } catch (IOException ex) {
 	                System.out.println("Image did not load.");
 	            }
@@ -239,20 +238,28 @@ public class Driver extends Application {
     	
     	//Image
     	//image title 1
-    	Text imageTitle1 = new Text("Image 1 : " + fileName1); //update image file name
+    	imageTitle1 = new Text("Image 1 : " + fileName1); //update image file name
     	leftImage.getChildren().add(imageTitle1);
     	//image padding 1
     	leftImage.setPadding(new Insets(7, 6, 7, 6));
 	    leftImage.setSpacing(5);
-    	getImage(imageImport1, leftImage);
+	    viewImage1 = new ImageView();
+    	viewImage1.setImage(imageImport1);
+    	viewImage1.setFitWidth(300);
+    	viewImage1.setFitHeight(300);
+    	leftImage.getChildren().add(viewImage1);
     	
     	//image title 2
-    	Text imageTitle2 = new Text("Image 2 : " + fileName2); //update image file name
+    	imageTitle2 = new Text("Image 2 : " + fileName2); //update image file name
     	centerImage.getChildren().add(imageTitle2);
     	//image padding 2
     	centerImage.setPadding(new Insets(7, 6, 7, 6));
 	    centerImage.setSpacing(5);
-    	getImage(imageImport2, centerImage);
+	    viewImage2 = new ImageView();
+    	viewImage2.setImage(imageImport2);
+    	viewImage2.setFitWidth(300);
+    	viewImage2.setFitHeight(300);
+    	centerImage.getChildren().add(viewImage2);
     	
     	//result title
     	Text resultTitle = new Text("Result");
@@ -260,7 +267,11 @@ public class Driver extends Application {
     	//result padding
     	rightImage.setPadding(new Insets(7, 6, 7, 6));
 	    rightImage.setSpacing(5);
-    	getImage(imageResult, rightImage);
+	    viewResults = new ImageView();
+    	viewResults.setImage(imageResult);
+    	viewResults.setFitWidth(300);
+    	viewResults.setFitHeight(300);
+    	rightImage.getChildren().add(viewResults);
     	
     	//Bottom buttons
     	VBox bottomLeftMenu = new VBox();
