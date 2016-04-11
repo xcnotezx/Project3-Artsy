@@ -27,7 +27,7 @@ public class MyArtsy implements Artsy {
     			}
     		}
     	}
-    	System.out.println("CHECKER")
+    	System.out.println("CHECKER");
     	return checked;
     } // doCheckers
 
