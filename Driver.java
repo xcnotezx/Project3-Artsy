@@ -237,8 +237,8 @@ public class Driver extends Application {
 		return verticalInput;
 	}
 	
-	//Bottom button method
-	public VBox bottomMenu(VBox bottomMenu) throws Exception{
+	//Bottom left button method
+	public VBox bottomLeftMenu(VBox bottomMenu) throws Exception{
 		//button padding
     	bottomMenu.setPadding(new Insets(12));
     	bottomMenu.setSpacing(10);
@@ -246,10 +246,78 @@ public class Driver extends Application {
     	Button rotate = new Button("Rotate");
     	rotate.setOnAction(e -> {
     		rotateBoxReturnValue = rotateBox("Rotate Image Options", "Please enter your angle, in degress.");
-    		
+    		if(rotateBoxReturnValue == -1){
+    			
+    		}
+    		else{
+        		imageImport1Display = ma.doRotate(imageImport1Display, rotateBoxReturnValue);
+        		viewImage1.setImage(imageImport1Display);
+    		}
+    	}); //setOnActive ROTATE
+    	
+    	Button reset = new Button("Reset");
+    	reset.setOnAction(e ->{
+    		imageImport1Display = imageImport1;
+    		viewImage1.setImage(imageImport1Display);
+    		System.out.println("RESET");
+    	}); //setOnAction RESET
+    	
+    	bottomMenu.getChildren().addAll(rotate, reset);
+    	bottomMenu.setAlignment(Pos.BOTTOM_LEFT);
+    	return bottomMenu;
+    }
+	
+	//Bottom center button method
+	public VBox bottomCenterMenu(VBox bottomMenu) throws Exception{
+		//button padding
+    	bottomMenu.setPadding(new Insets(12));
+    	bottomMenu.setSpacing(10);
+    	//button
+    	Button rotate = new Button("Rotate");
+    	rotate.setOnAction(e -> {
+    		rotateBoxReturnValue = rotateBox("Rotate Image Options", "Please enter your angle, in degress.");
+    		if(rotateBoxReturnValue == -1){
+    			
+    		}
+    		else{
+        		imageImport2Display = ma.doRotate(imageImport2Display, rotateBoxReturnValue);
+        		viewImage2.setImage(imageImport2Display);
+    		}
     	}); //setOnActive ROTATE
     	Button reset = new Button("Reset");
-    	reset.setOnAction(e -> System.out.println("RESET")); //setOnAction RESET
+    	reset.setOnAction(e ->{
+    		imageImport2Display = imageImport2;
+    		viewImage2.setImage(imageImport2Display);
+    		System.out.println("RESET");
+    	}); //setOnAction RESET
+    	bottomMenu.getChildren().addAll(rotate, reset);
+    	bottomMenu.setAlignment(Pos.BOTTOM_LEFT);
+    	return bottomMenu;
+    }
+	
+	//Bottom right button method
+	public VBox bottomRightMenu(VBox bottomMenu) throws Exception{
+		//button padding
+    	bottomMenu.setPadding(new Insets(12));
+    	bottomMenu.setSpacing(10);
+    	//button
+    	Button rotate = new Button("Rotate");
+    	rotate.setOnAction(e -> {
+    		rotateBoxReturnValue = rotateBox("Rotate Image Options", "Please enter your angle, in degress.");
+    		if(rotateBoxReturnValue == -1){
+    			
+    		}
+    		else{
+        		imageResultDisplay = ma.doRotate(imageResultDisplay, rotateBoxReturnValue);
+        		viewResults.setImage(imageResultDisplay);
+    		}
+    	}); //setOnActive ROTATE
+    	Button reset = new Button("Reset");
+    	reset.setOnAction(e ->{
+    		imageResultDisplay = imageResult;
+    		viewResults.setImage(imageResultDisplay);
+    		System.out.println("RESET");
+    	}); //setOnAction RESET
     	bottomMenu.getChildren().addAll(rotate, reset);
     	bottomMenu.setAlignment(Pos.BOTTOM_LEFT);
     	return bottomMenu;
