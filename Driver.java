@@ -415,6 +415,7 @@ public class Driver extends Application {
 				try {
 	                BufferedImage bufferedImage = ImageIO.read(imageFile1);
 	                imageImport1 = SwingFXUtils.toFXImage(bufferedImage, null);
+	                imageImport1Display = SwingFXUtils.toFXImage(bufferedImage, null);
 	                viewImage1.setImage(imageImport1);
 	                fileName1 = imageFile1.getName();
 	                imageTitle1.setText("Image 1 : " + fileName1);
@@ -442,6 +443,7 @@ public class Driver extends Application {
 				try {
 	                BufferedImage bufferedImage = ImageIO.read(imageFile2);
 	                imageImport2 = SwingFXUtils.toFXImage(bufferedImage, null);
+	                imageImport2Display = swingFXUtils.toFXImage(bufferedImage, null);
 	                viewImage2.setImage(imageImport2);
 	                fileName2 = imageFile1.getName();
 	                imageTitle2.setText("Image 2 : " + fileName2);
@@ -463,7 +465,7 @@ public class Driver extends Application {
                 File file = fileChooser.showSaveDialog(stage);
                 if (file != null) {
                     try {
-                        ImageIO.write(SwingFXUtils.fromFXImage(imageResult, null), "png", file);
+                        ImageIO.write(SwingFXUtils.fromFXImage(imageResultDisplay, null), "png", file);
                     } catch (IOException ex) {
                         System.out.println("Image did not save.");
                     }
