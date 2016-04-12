@@ -52,6 +52,7 @@ public class Driver extends Application {
 	String fileName2 = "default.png";
 	Text imageTitle1;
 	Text imageTitle2;
+	Image defaultImage = new Image("file:resources/default.png");
 	Image imageImport1 = new Image("file:resources/default.png");
 	Image imageImport1Display = new Image("file:resources/default.png");
 	Image imageImport2 = new Image("file:resources/default.png");
@@ -314,6 +315,7 @@ public class Driver extends Application {
     	}); //setOnActive ROTATE
     	Button reset = new Button("Reset");
     	reset.setOnAction(e ->{
+    		imageResult = defaultImage;
     		imageResultDisplay = imageResult;
     		viewResults.setImage(imageResultDisplay);
     		System.out.println("RESET");
