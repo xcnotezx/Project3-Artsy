@@ -165,7 +165,10 @@ public class Driver extends Application {
 				label.setText("You have not entered stripe height, in pixels");
 			}
 		});
-		cancel.setOnAction(e -> window.close());
+		cancel.setOnAction(e -> {
+			horizontalInput = -1;
+			window.close();
+		});
 		
 		answerBox.getChildren().add(label);
 		answerBox.getChildren().add(textField);
@@ -177,7 +180,7 @@ public class Driver extends Application {
 		window.setScene(scene);
 		window.showAndWait();
 		
-		return checkersInput;
+		return horizontalInput;
 	}
 	
 	//VerticalBox window
@@ -216,7 +219,10 @@ public class Driver extends Application {
 				label.setText("You have not entered stripe width, in pixels");
 			}
 		});
-		cancel.setOnAction(e -> window.close());
+		cancel.setOnAction(e -> {
+			verticalInput = -1;
+			window.close();
+		});
 		
 		answerBox.getChildren().add(label);
 		answerBox.getChildren().add(textField);
@@ -228,7 +234,7 @@ public class Driver extends Application {
 		window.setScene(scene);
 		window.showAndWait();
 		
-		return checkersInput;
+		return verticalInput;
 	}
 	
 	//Bottom button method
