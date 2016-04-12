@@ -534,7 +534,7 @@ public class Driver extends Application {
     	leftImage.setPadding(new Insets(7, 6, 7, 6));
 	    leftImage.setSpacing(5);
 	    viewImage1 = new ImageView();
-    	viewImage1.setImage(imageImport1);
+    	viewImage1.setImage(imageImport1Display);
     	viewImage1.setFitWidth(300);
     	viewImage1.setFitHeight(300);
     	leftImage.getChildren().add(viewImage1);
@@ -546,7 +546,7 @@ public class Driver extends Application {
     	centerImage.setPadding(new Insets(7, 6, 7, 6));
 	    centerImage.setSpacing(5);
 	    viewImage2 = new ImageView();
-    	viewImage2.setImage(imageImport2);
+    	viewImage2.setImage(imageImport2Display);
     	viewImage2.setFitWidth(300);
     	viewImage2.setFitHeight(300);
     	centerImage.getChildren().add(viewImage2);
@@ -558,7 +558,7 @@ public class Driver extends Application {
     	rightImage.setPadding(new Insets(7, 6, 7, 6));
 	    rightImage.setSpacing(5);
 	    viewResults = new ImageView();
-    	viewResults.setImage(imageResult);
+    	viewResults.setImage(imageResultDisplay);
     	viewResults.setFitWidth(300);
     	viewResults.setFitHeight(300);
     	rightImage.getChildren().add(viewResults);
