@@ -75,7 +75,7 @@ public class Driver extends Application {
         launch(args);
     } // main
 	
-	//CheckersBox window
+//CheckersBox window
 	public static int checkersBox(String title, String message){
 		Stage window = new Stage();
 		window.initModality(Modality.APPLICATION_MODAL);
@@ -111,7 +111,10 @@ public class Driver extends Application {
 				label.setText("You have not entered checker width, in pixels");
 			}
 		});
-		cancel.setOnAction(e -> window.close());
+		cancel.setOnAction(e ->{
+			checkersInput = -1;
+			window.close();
+		});
 		
 		answerBox.getChildren().add(label);
 		answerBox.getChildren().add(textField);
