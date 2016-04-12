@@ -1,6 +1,7 @@
 package main.java.cs1302.p2;
 
 import main.java.cs1302.effects.Artsy;
+import main.java.cs1302.p2.myArtsy;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -52,8 +53,11 @@ public class Driver extends Application {
 	Text imageTitle1;
 	Text imageTitle2;
 	Image imageImport1 = new Image("file:resources/default.png");
+	Image imageImport1Display = new Image("file:resources/default.png");
 	Image imageImport2 = new Image("file:resources/default.png");
+	Image imageImport2Display = new Image("file:resources/default.png");
 	Image imageResult = new Image("file:resources/default.png");
+	Image imageResultDisplay = new Image("file:resources/default.png");
 	ImageView viewImage1;
 	ImageView viewImage2;
 	ImageView viewResults;
@@ -65,6 +69,7 @@ public class Driver extends Application {
 	int checkersBoxReturnValue;
 	int horizontalBoxReturnValue;
 	int verticalBoxReturnValue;
+	MyArtsy ma = new MyArtsy();
 	
 	public static void main(String[] args) {
         launch(args);
