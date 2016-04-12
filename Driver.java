@@ -336,7 +336,7 @@ public class Driver extends Application {
 		
 		//Text Field
 		final TextField textField = new TextField();
-		textField.setPromptText("Enter your angel, in degrees.");
+		textField.setPromptText("Enter your angle, in degrees.");
 		answerBox.setSpacing(10);
 		
 		//Buttons
@@ -359,7 +359,10 @@ public class Driver extends Application {
 				label.setText("You have not entered your angel, in degrees.");
 			}
 		});
-		cancel.setOnAction(e -> window.close());
+		cancel.setOnAction(e -> {
+			rotateInput = -1;
+			window.close();
+		});
 		
 		answerBox.getChildren().add(label);
 		answerBox.getChildren().add(textField);
