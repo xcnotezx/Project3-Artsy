@@ -447,7 +447,7 @@ public class Driver extends Application {
 	                imageImport2 = SwingFXUtils.toFXImage(bufferedImage, null);
 	                imageImport2Display = swingFXUtils.toFXImage(bufferedImage, null);
 	                viewImage2.setImage(imageImport2);
-	                fileName2 = imageFile1.getName();
+	                fileName2 = imageFile2.getName();
 	                imageTitle2.setText("Image 2 : " + fileName2);
 	            } catch (IOException ex) {
 	                System.out.println("Image did not load.");
