@@ -1,7 +1,6 @@
 package main.java.cs1302.p2;
 
 import main.java.cs1302.effects.Artsy;
-import main.java.cs1302.p2.myArtsy;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
