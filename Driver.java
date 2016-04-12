@@ -1,7 +1,5 @@
 package main.java.cs1302.p2;
 
-import main.java.cs1302.effects.Artsy;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,10 +13,8 @@ import javafx.event.EventHandler;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -444,7 +440,7 @@ public class Driver extends Application {
 				try {
 	                BufferedImage bufferedImage = ImageIO.read(imageFile2);
 	                imageImport2 = SwingFXUtils.toFXImage(bufferedImage, null);
-	                imageImport2Display = swingFXUtils.toFXImage(bufferedImage, null);
+	                imageImport2Display = SwingFXUtils.toFXImage(bufferedImage, null);
 	                viewImage2.setImage(imageImport2);
 	                fileName2 = imageFile2.getName();
 	                imageTitle2.setText("Image 2 : " + fileName2);
