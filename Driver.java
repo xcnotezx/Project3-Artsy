@@ -491,14 +491,38 @@ public class Driver extends Application {
 	    Button checkers = new Button("Checkers");
 	    checkers.setOnAction(e -> {
     		checkersBoxReturnValue = checkersBox("Checkers Options", "Please enter the desired checker width, in pixels.");
+    		if (checkersBoxReturnValue == -1){
+    			
+    		}
+    		else{
+    			imageResult = ma.doCheckers(imageImport1Display, imageImport2Display, checkersBoxReturnValue);
+    			imageResultDisplay = ma.doCheckers(imageImport1Display, imageImport2Display, checkersBoxReturnValue);
+    			viewResults.setImage(imageResultDisplay);
+    		}
 	    }); //setOnAction CHECKERS
     	Button horizontalStripes = new Button("Horizontal Stripes");
     	horizontalStripes.setOnAction(e -> {
     		horizontalBoxReturnValue = horizontalBox("Horizontal Stripe Options", "Please enter the desired stripe height, in pixels.");
-	    }); //setOnAction HORIZONTAL STRIPES
+    		if (horizontalBoxReturnValue == -1){
+    			
+    		}
+    		else{
+    			imageResult = ma.doHorizontalStripes(imageImport1Display, imageImport2Display, horizontalBoxReturnValue);
+    			imageResultDisplay = ma.doHorizontalStripes(imageImport1Display, imageImport2Display, horizontalBoxReturnValue);
+    			viewResults.setImage(imageResultDisplay);
+    		}
+    	}); //setOnAction HORIZONTAL STRIPES
     	Button verticalStripes = new Button("Vertical Stripes");
     	verticalStripes.setOnAction(e -> {
     		verticalBoxReturnValue = verticalBox("Vertical Stripe Options", "Please enter the desired stripe width, in pixels.");
+    		if(verticalBoxReturnValue == -1){
+    			
+    		}
+    		else{
+    			imageResult = ma.doVerticalStripes(imageImport1Display, imageImport2Display, verticalBoxReturnValue);
+    			imageResultDisplay = ma.doVerticalStripes(imageImport1Display, imageImport2Display, verticalBoxReturnValue);
+    			viewResults.setImage(imageResultDisplay);
+    		}
 	    }); //setOnAction VERTICAL STRIPES
     	topMenu.getChildren().addAll(checkers, horizontalStripes, verticalStripes);
     	
@@ -541,11 +565,11 @@ public class Driver extends Application {
     	
     	//Bottom buttons
     	VBox bottomLeftMenu = new VBox();
-    	bottomMenu(bottomLeftMenu);
+    	bottomLeftMenu(bottomLeftMenu);
     	VBox bottomCenterMenu = new VBox();
-    	bottomMenu(bottomCenterMenu);
+    	bottomCenterMenu(bottomCenterMenu);
     	VBox bottomRightMenu = new VBox();
-    	bottomMenu(bottomRightMenu);
+    	bottomRightMenu(bottomRightMenu);
     	
     	topLayout = new BorderPane();
     	centerLeftLayout = new BorderPane();
